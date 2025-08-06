@@ -14,14 +14,44 @@ export default function ChatPage() {
   ]);
   const [input, setInput] = useState('');
 
-  const handleSend = (text) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSend = async (text) => {
     if (!text.trim()) return;
-    setMessages([...messages, { role: 'user', content: text }]);
+    setMessages(prev => [...prev, { role: 'user', content: text }]);
     setInput('');
-    // Simulate AI response
-    setTimeout(() => {
-      setMessages(msgs => [...msgs, { role: 'assistant', content: 'This is a sample AI response to: ' + text }]);
-    }, 800);
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('https://ai-assistant-function.azurewebsites.net/api/openai-assistant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: text })
+      });
+      if (!res.ok) throw new Error('Server error');
+      const data = await res.json();
+      // Extract assistant message(s) and join their text values
+      let assistantTexts = [];
+      if (Array.isArray(data.messages)) {
+        data.messages.forEach(msg => {
+          if (msg.role === 'assistant' && Array.isArray(msg.content)) {
+            msg.content.forEach(part => {
+              if (part.type === 'text' && part.text && part.text.value) {
+                assistantTexts.push(part.text.value);
+              }
+            });
+          }
+        });
+      }
+      const reply = assistantTexts.length > 0 ? assistantTexts.join('\n\n') : 'No response from assistant.';
+      setMessages(msgs => [...msgs, { role: 'assistant', content: reply }]);
+    } catch (err) {
+      setMessages(msgs => [...msgs, { role: 'assistant', content: 'Sorry, there was a problem connecting to the assistant.' }]);
+      setError('Failed to connect.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,6 +68,11 @@ export default function ChatPage() {
         {messages.map((msg, i) => (
           <div key={i} className={`chatgpt-msg chatgpt-msg-${msg.role}`}>{msg.content}</div>
         ))}
+        {loading && (
+          <div className="chatgpt-msg chatgpt-msg-assistant">...
+            <span style={{ color: '#a78bfa', fontStyle: 'italic', fontSize: '0.97rem' }}>Assistant is typing...</span>
+          </div>
+        )}
       </div>
       <form className="chatgpt-inputbar" onSubmit={e => { e.preventDefault(); handleSend(input); }}>
         <input
