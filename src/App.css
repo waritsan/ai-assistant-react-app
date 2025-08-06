@@ -1,38 +1,326 @@
-.App {
-  text-align: center;
+.chatgpt-toolbar {
+  z-index: 20;
+}
+.toolbar-btn.active {
+  background: #ede9fe;
+  color: #a78bfa;
+}
+@media (min-width: 600px) {
+  .toolbar, .chatgpt-toolbar {
+    max-width: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+}
+/* ChatGPT-like chat page styles */
+.chatgpt-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f7f7f7;
+  position: relative;
+  z-index: 1;
+}
+.chatgpt-header {
+  padding: 1.1rem 1.1rem 0.5rem 1.1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #7c3aed;
+  background: #fff;
+  border-bottom: 1px solid #ede9fe;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  /* Remove any opacity or transparency */
+  opacity: 1;
+  backdrop-filter: none;
+}
+.chatgpt-header-sub {
+  font-size: 0.95rem;
+  color: #a78bfa;
+  font-weight: 500;
+}
+.chatgpt-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem 0.5rem 1.1rem;
+  background: #fff;
+  border-bottom: 1px solid #ede9fe;
+}
+.chatgpt-suggestion {
+  background: #ede9fe;
+  color: #7c3aed;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.97rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.chatgpt-suggestion:hover {
+  background: #c7d2fe;
+  color: #4f46e5;
+}
+.chatgpt-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1.1rem 1.1rem 90px 1.1rem; /* extra bottom padding for input and toolbar */
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.chatgpt-msg {
+  max-width: 80%;
+  padding: 0.7rem 1rem;
+  border-radius: 1.2rem;
+  font-size: 1.01rem;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(168,139,250,0.07);
+  word-break: break-word;
+}
+.chatgpt-msg-user {
+  align-self: flex-end;
+  background: #7c3aed;
+  color: #fff;
+  border-bottom-right-radius: 0.3rem;
+}
+.chatgpt-msg-assistant {
+  align-self: flex-start;
+  background: #fff;
+  color: #333;
+  border-bottom-left-radius: 0.3rem;
+}
+.chatgpt-inputbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem 1.1rem 1.1rem 1.1rem;
+  background: #fff;
+  border-top: 1px solid #ede9fe;
+  position: sticky;
+  bottom: 56px; /* height of toolbar */
+  z-index: 15;
+}
+.chatgpt-inputbar input {
+  flex: 1 1 auto;
+  padding: 0.7rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  outline: none;
+  background: #f3f4f6;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.chatgpt-inputbar input:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px #a78bfa33;
+}
+.chatgpt-inputbar button {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.chatgpt-inputbar button:hover {
+  background: #4f46e5;
+}
+/* Top header with date, greeting, and avatar */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.1rem 0.2rem 1.1rem;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  /* Remove any opacity or transparency */
+  opacity: 1;
+  backdrop-filter: none;
+}
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+.header-date {
+  font-size: 0.98rem;
+  color: #a78bfa;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.header-greeting {
+  font-size: 1.18rem;
+  color: #333;
+  font-weight: 700;
+  margin-top: 0.1rem;
+}
+.header-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(168,139,250,0.13);
+  border: 2px solid #ede9fe;
 }
 
-.App-logo {
-  height: 40vmin;
+/* Beautiful background gradient */
+.background-gradient {
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0abfc 100%);
+  opacity: 0.25;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Mobile-first container */
+.mobile-app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f7f7f7;
+  position: relative;
+  z-index: 1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Search bar at the top */
+.search-bar {
+  background: #fff;
+  padding: 1rem 1.1rem 1rem 1.1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 64px;
+  z-index: 10;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  outline: none;
+  background: #f3f4f6;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* News feed cards */
+.news-feed {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem 0.5rem 1rem 0.5rem;
+  margin-bottom: 60px; /* space for toolbar */
+  z-index: 1;
+}
+.news-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(168,139,250,0.10), 0 1.5px 4px rgba(0,0,0,0.04);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.news-card:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 32px rgba(168,139,250,0.18), 0 2px 8px rgba(0,0,0,0.06);
+}
+.news-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #e0e7ff;
+}
+.news-content {
+  padding: 1rem;
+  text-align: left;
+}
+.news-content h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+  color: #7c3aed;
+  font-weight: 700;
+}
+.news-content p {
+  color: #555;
+  font-size: 0.97rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Toolbar at the bottom */
+.toolbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  box-shadow: 0 -2px 16px rgba(168,139,250,0.10), 0 -1.5px 4px rgba(0,0,0,0.04);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 56px;
+  z-index: 20;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+.toolbar-btn {
+  background: none;
+  border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 0.9rem;
+  color: #7c3aed;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  transition: background 0.18s, color 0.18s;
+  gap: 2px;
+}
+.toolbar-btn svg {
+  margin-bottom: 2px;
+  display: block;
+}
+.toolbar-btn:active, .toolbar-btn:focus {
+  background: #ede9fe;
+  color: #a78bfa;
+  outline: none;
+}
+.toolbar-btn span {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (min-width: 600px) {
+  .mobile-app-container {
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(168,139,250,0.10), 0 2px 8px rgba(0,0,0,0.06);
   }
 }
