@@ -168,12 +168,15 @@
   margin-top: 0.1rem;
 }
 .header-avatar img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 10%;
   box-shadow: 0 2px 8px rgba(168,139,250,0.13);
   border: 2px solid #ede9fe;
+  background: #fff;
+  margin-top: -4px;
 }
 
 /* Beautiful background gradient */

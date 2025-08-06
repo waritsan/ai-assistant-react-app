@@ -6,21 +6,21 @@ import ChatPage from './ChatPage';
 const newsFeed = [
   {
     id: 1,
-    title: 'Breaking News: React 19 Released!',
-    summary: 'React 19 brings new features and performance improvements for developers.',
-    image: 'https://source.unsplash.com/random/400x200?tech',
+    title: 'โครงการสินเชื่อที่อยู่อาศัยฯ',
+    summary: 'ปัจจุบันโครงการสินเชื่อที่อยู่อาศัยฯ ธนาคารอยู่ระหว่างการพิจารณาอนุมัติสินเชื่อ ทั้งนี้ หากคิวที่อยู่ระหว่างการพิจารณาไม่ผ่านการอนุมัติของธนาคาร สำนักงานประกันสังคมจะเรียกคิวสำรองเพิ่มเติมในระยะถัดไป',
+    image: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 2,
-    title: 'Mobile-First Design Best Practices',
-    summary: 'Learn how to design responsive, mobile-first web applications.',
-    image: 'https://source.unsplash.com/random/400x200?mobile',
+    title: 'โครงการสินเชื่อเพื่อส่งเสริมการจ้างงาน',
+    summary: 'สถานประกอบการที่สนใจเข้าร่วมโครงการสินเชื่อเพื่อส่งเสริมการจ้างงาน ระยะที่ 3 (พ.ศ. 2568 – 2569) สามารถขอรับหนังสือรับรองเพื่อประกอบการขอสินเชื่อ ได้ตั้งแต่วันที่ 3 กรกฎาคม 2568 เป็นต้นไป',
+    image: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=400&q=80',
   },
   {
     id: 3,
-    title: 'JavaScript Trends in 2025',
-    summary: 'Discover the latest trends in JavaScript and web development.',
-    image: 'https://source.unsplash.com/random/400x200?javascript',
+    title: 'โครงการสินเชื่อที่อยู่อาศัยเพื่อผู้ประกันตน',
+    summary: 'ประกาศเรียกคิวสำรองโครงการสินเชื่อที่อยู่อาศัยเพื่อผู้ประกันตน พ.ศ. 2567 รอบวันที่ 16 มิถุนายน 2568',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=400&q=80',
   },
 ];
 
@@ -42,7 +42,7 @@ function App() {
               <div className="header-greeting">Hello Warit</div>
             </div>
             <div className="header-avatar">
-              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="avatar" />
+              <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=facearea&w=200&h=200&facepad=3" alt="kid avatar" />
             </div>
           </div>
           <header className="search-bar">
