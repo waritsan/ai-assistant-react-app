@@ -15,7 +15,7 @@ export default function ChatPage() {
   const [input, setInput] = useState('');
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // Removed unused error state
 
   const handleSend = async (text) => {
     if (!text.trim()) return;
