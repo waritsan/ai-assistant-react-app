@@ -22,7 +22,6 @@ export default function ChatPage() {
     setMessages(prev => [...prev, { role: 'user', content: text }]);
     setInput('');
     setLoading(true);
-    setError(null);
     try {
       const res = await fetch('https://ai-assistant-function.azurewebsites.net/api/openai-assistant', {
         method: 'POST',
@@ -48,7 +47,6 @@ export default function ChatPage() {
       setMessages(msgs => [...msgs, { role: 'assistant', content: reply }]);
     } catch (err) {
       setMessages(msgs => [...msgs, { role: 'assistant', content: 'Sorry, there was a problem connecting to the assistant.' }]);
-      setError('Failed to connect.');
     } finally {
       setLoading(false);
     }
